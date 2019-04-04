@@ -1,4 +1,5 @@
 # MOOCTextEditor
+https://github.com/MargaritaOstrovskaia/MOOCTextEditor/wiki/TextEditor
 
 Add JUnit to your project. 
 To do this, go to Project->Properties. 
