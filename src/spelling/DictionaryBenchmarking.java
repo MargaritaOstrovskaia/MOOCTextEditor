@@ -1,7 +1,6 @@
 package spelling;
 
-/** A class for timing the Dictionary Implementations
- * @author UC San Diego Intermediate Programming MOOC team */
+/** A class for timing the Dictionary Implementations */
 public class DictionaryBenchmarking {
 	public static void main(String [] args) {
 
@@ -24,7 +23,7 @@ public class DictionaryBenchmarking {
 		// You can play around with this.
 		int start = 50000;
 		
-		String notInDictionary = "Aachen";//"notaword";
+		String notInDictionary = "Aachen";
 		
 		// TODO: Play around with the numbers above and graph the output to see trends in the data
 		for (int numToCheck = start; numToCheck < numSteps*increment + start; 
@@ -33,10 +32,13 @@ public class DictionaryBenchmarking {
 			// Time the creation of finding a word that is not in the dictionary.
 			DictionaryLL llDict = new DictionaryLL();
 			DictionaryBST bstDict = new DictionaryBST();
+			DictionaryHashSet hashDict = new DictionaryHashSet();
 			
 			DictionaryLoader.loadDictionary(llDict, dictFile, numToCheck);
 			DictionaryLoader.loadDictionary(bstDict, dictFile, numToCheck);
+			DictionaryLoader.loadDictionary(hashDict, dictFile, numToCheck);
 			
+			// Dictionary LinkedList
 			long startTime = System.nanoTime();
 			for (int i = 0; i < trials; i++) {
 				llDict.isWord(notInDictionary);
@@ -44,6 +46,7 @@ public class DictionaryBenchmarking {
 			long endTime = System.nanoTime();
 			long timeLL = (endTime - startTime);  
 			
+			// DictionaryBST - TreeSet
 			startTime = System.nanoTime();
 			for (int i = 0; i < trials; i++) {
 				bstDict.isWord(notInDictionary);
@@ -51,7 +54,15 @@ public class DictionaryBenchmarking {
 			endTime = System.nanoTime();
 			long timeBST = (endTime - startTime);
 			
-			System.out.println(numToCheck + "\t" + timeLL + "\t" + timeBST);
+			// Dictionary HashSet
+			startTime = System.nanoTime();
+			for (int i = 0; i < trials; i++) {
+				hashDict.isWord(notInDictionary);
+			}
+			endTime = System.nanoTime();
+			long timeHash = (endTime - startTime);
+			
+			System.out.println(numToCheck + "\t" + timeLL + "\t" + timeBST + "\t" + timeHash);
 		}
 	}
 }

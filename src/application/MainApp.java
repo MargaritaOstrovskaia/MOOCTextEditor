@@ -20,11 +20,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-/**  
- * @author UC San Diego Intermediate Programming MOOC team
- * @author Margarita Ostrovskaia
- * date 03/22/2019
- */
+/** @author UC San Diego Intermediate Programming MOOC team
+ *  @author Margarita Ostrovskaia
+ *  date 03/22/2019 */
 public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
@@ -74,10 +72,9 @@ public class MainApp extends Application {
     }
    
     // SHOW NEW STAGE METHODS
-    /**
-     * Shows dialog for user input error
-     * @param inErr - message to dispaly
-     */
+    /** Shows dialog for user input error
+     * 
+     * @param inErr - message to dispaly */
     public void showInputErrorDialog(String inErr) {
     	Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
@@ -87,10 +84,9 @@ public class MainApp extends Application {
 		alert.showAndWait();
     }
     
-    /**
-     * Displays dialog that allows user to select local text file to display in TextArea
-     * @param ta - reference to TextArea to display loaded text file
-     */
+    /** Displays dialog that allows user to select local text file to display in TextArea
+     * 
+     * @param ta - reference to TextArea to display loaded text file */
     public void showLoadFileDialog(AutoSpellingTextArea ta) {
 	    	try {
 	    		// Load the fxml file and create a new stage for the popup
@@ -120,7 +116,7 @@ public class MainApp extends Application {
     
     public void showEditDistanceDialog(String selectedText) {
 	    	try {
-	    		// Load the fxml file and create a new stage for the popup
+	    			// Load the fxml file and create a new stage for the popup
 				FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/EditDistanceLayout.fxml"));
 				VBox page = (VBox) loader.load();
 				Stage dialogStage = new Stage();
@@ -197,16 +193,14 @@ public class MainApp extends Application {
 	    	
 	    	// set content and styling
 	    	alert.getDialogPane().setContent(box);
-	    	alert.getDialogPane().getStylesheets().add(
-	    			   getClass().getResource("application.css").toExternalForm());
+	    	alert.getDialogPane().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 	    	alert.getDialogPane().getStyleClass().add("myDialog");
 	    	alert.showAndWait();
     }
     
-    
     public void showMarkovDialog(textgen.MarkovTextGenerator mtg) {
 	    	try {
-	    		// Load the fxml file and create a new stage for the popup
+	    			// Load the fxml file and create a new stage for the popup
 				FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/MarkovLayout.fxml"));
 				BorderPane page = (BorderPane) loader.load();
 				Stage dialogStage = new Stage();
@@ -217,7 +211,7 @@ public class MainApp extends Application {
 				dialogStage.setScene(scene);
 	
 				// Set reference to stage in controller
-				//BUG -- when first displayed results don't show up until resize window
+				// BUG -- when first displayed results don't show up until resize window
 				MarkovController controller = loader.getController();
 				//controller.setDialogStage(dialogStage);
 				controller.setMainApp(this);

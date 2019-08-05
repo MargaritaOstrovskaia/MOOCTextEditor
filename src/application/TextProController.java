@@ -15,16 +15,12 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
 public class TextProController {
-
-	
 	private final static double DEFAULT_SPACING = 55;
 	private final static double CONTROL_HEIGHT = 132;
 	private final static double SPACE_DIV = 8.5;
 	private final static double BUTTON_WIDTH = 160.0;
 	private final static double RBOX_THRESHOLD = 520;	 // threshold to change spacing of right VBox
-	
 	
 	// used when showing new stage/scene
 	private MainApp mainApp;
@@ -59,24 +55,12 @@ public class TextProController {
 	@FXML 
 	private CheckBox spellingBox;
 	
-	//private Node 
-	
-	
-	
-	
-	
-	 /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     * 
-     * Initialize and add text area to application
-     */
+	 /** Initializes the controller class. This method is automatically called after the fxml file has been loaded.
+     * Initialize and add text area to application */
 	@FXML
 	private void initialize() {
 		// make field displaying flesch score read-only
 		fleschField.setEditable(false);
-		
-		
 		launch = new LaunchClass();
 		
 		// instantiate and add custom text area
@@ -84,10 +68,7 @@ public class TextProController {
 		textBox = new AutoSpellingTextArea(launch.getAutoComplete(), launch.getSpellingSuggest(dic), dic);
 		textBox.setPrefSize(570, 492);
 		textBox.setStyle("-fx-font-size: 14px");
-		
-		
 		textBox.setWrapText(true);
-		
 		
 		// add text area as first child of left VBox
 		ObservableList<Node> nodeList = leftPane.getChildren();
@@ -96,13 +77,9 @@ public class TextProController {
 		nodeList.add(firstChild);
 		
 		VBox.setVgrow(textBox, Priority.ALWAYS);
-		
-		
-		
+
 		// ADD LISTENERS FOR ADJUSTING ON RESIZE
-		
 		container.widthProperty().addListener(li -> {
-			
 			if((container.getWidth() - leftPane.getPrefWidth()) < BUTTON_WIDTH) {
 				rightBox.setVisible(false);
 			}
@@ -136,19 +113,12 @@ public class TextProController {
 		});
 	}
 	
-	
-	
-	
-	/**
-     * Is called by the main application to give a reference back to itself.
+	/** Is called by the main application to give a reference back to itself.
      * Also give reference to AutoSpellingTextArea
      * 
-     * 
-     * @param mainApp
-     */
+     * @param mainApp */
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
-		
 	}
 	
 	@FXML
@@ -169,35 +139,25 @@ public class TextProController {
 			
 			// display string in text field
 			fleschField.setText(fString);
-			
 		}
 		else {
 			// reset text field
 			fleschField.setText("");
 			mainApp.showInputErrorDialog("No text entered.");
-			
 		}
-		
 	}
-	
-
 	
 	@FXML
 	private void handleLoadText() {
 		//return string??
 		mainApp.showLoadFileDialog(textBox);
-		
-		
 		//textBox.appendText(text);
-		
-		
 	}
 	
 	@FXML
 	private void handleEditDistance() {
 		String selectedText = textBox.getSelectedText();
 		mainApp.showEditDistanceDialog(selectedText);
-		
 	}
 	
 	@FXML
@@ -224,7 +184,6 @@ public class TextProController {
 				e.consume();
 			}
 		});
-
 		
 		// show loading dialog when task is running
 		task.setOnRunning( e -> {
@@ -240,12 +199,7 @@ public class TextProController {
 	    
 	   Thread thread  = new Thread(task);
 	   thread.start();
-	  
-		
-		
 	}
-	
-	
 	
 	@FXML
 	private void handleAutoComplete() {
@@ -265,14 +219,10 @@ public class TextProController {
 		else {
 			textBox.setSpelling(false);
 		}
-		
 	}
-	
 	
 	@FXML
 	private void handleClear() {
 		textBox.clear();
 	}
-	
-	
 }

@@ -5,8 +5,6 @@ import java.util.Queue;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-/**@author Margarita Ostrovskaia
- * date 04/02/2019 */
 public class AutoCompleteMatchCase implements  Dictionary, AutoComplete {
     private TrieNode root;
     private int size;

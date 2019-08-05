@@ -1,9 +1,11 @@
+/**
+ * @author UC San Diego Intermediate MOOC team and Margarita Ostrovskaia
+ * date 04/02/2019 
+ */
 package spelling;
 
 import java.util.HashSet;
 
-/**@author Margarita Ostrovskaia
- * date 04/02/2019 */
 public class DictionaryHashSetMatchCase implements Dictionary 
 {
     private HashSet<String> words;

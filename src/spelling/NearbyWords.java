@@ -1,3 +1,7 @@
+/** 
+ * @author UC San Diego Intermediate MOOC team and Margarita Ostrovskaia
+ * date 04/03/2019 
+ */
 package spelling;
 
 import java.util.ArrayList;
@@ -5,13 +9,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-/** @author UC San Diego Intermediate MOOC team 
- * @author Margarita Ostrovskaia
- * date 04/03/2019 */
 public class NearbyWords implements SpellingSuggest {
-	// THRESHOLD to determine how many words to look through when looking
-	// for spelling suggestions (stops prohibitively long searching)
-	// For use in the Optional Optimization in Part 2.
+	// to determine how many words to look through when looking for spelling suggestions
 	private static final int THRESHOLD = 1000; 
 
 	Dictionary dict;
@@ -21,6 +20,7 @@ public class NearbyWords implements SpellingSuggest {
 	}
 
 	/** Return the list of Strings that are one modification away from the input string.  
+	 * 
 	 * @param s The original String
 	 * @param wordsOnly controls whether to return only words or any String
 	 * @return list of Strings which are nearby the original string */
@@ -35,6 +35,7 @@ public class NearbyWords implements SpellingSuggest {
 	}
 	
 	/** Add to the currentList Strings that are one character mutation away from the input string.  
+	 * 
 	 * @param s The original String
 	 * @param currentList is the list of words to append modified words 
 	 * @param wordsOnly controls whether to return only words or any String */
@@ -55,11 +56,11 @@ public class NearbyWords implements SpellingSuggest {
 	}
 	
 	/** Add to the currentList Strings that are one character insertion away from the input string.  
+	 * 
 	 * @param s The original String
 	 * @param currentList is the list of words to append modified words 
 	 * @param wordsOnly controls whether to return only words or any String */
-	public void insertions(String s, List<String> currentList, boolean wordsOnly ) {
-		// TODO: Implement 'insertions' method 
+	public void insertions(String s, List<String> currentList, boolean wordsOnly ) { // TODO
 		for(int index = 0; index <= s.length(); index++){
 			for(int charCode = (int)'a'; charCode <= (int)'z'; charCode++) {
 				StringBuffer sb = new StringBuffer(s);
@@ -72,11 +73,11 @@ public class NearbyWords implements SpellingSuggest {
 	}
 
 	/** Add to the currentList Strings that are one character deletion away from the input string.  
+	 * 
 	 * @param s The original String
 	 * @param currentList is the list of words to append modified words 
 	 * @param wordsOnly controls whether to return only words or any String */
-	public void deletions(String s, List<String> currentList, boolean wordsOnly ) {
-		// TODO: Implement 'deletions' method
+	public void deletions(String s, List<String> currentList, boolean wordsOnly ) { // TODO
 		for(int index = 0; index < s.length(); index++){
 			StringBuffer sb = new StringBuffer(s);
 			sb.deleteCharAt(index);
@@ -87,6 +88,7 @@ public class NearbyWords implements SpellingSuggest {
 	}
 
 	/** Add to the currentList Strings that are one character deletion away from the input string.  
+	 * 
 	 * @param word The misspelled word
 	 * @param numSuggestions is the maximum number of suggestions to return 
 	 * @return the list of spelling suggestions */
@@ -120,10 +122,10 @@ public class NearbyWords implements SpellingSuggest {
 		}
 		
 		return retList;
-	}	
-
+	}
+	
+	/*
    public static void main(String[] args) {
-	   /*
 	   // basic testing code to get started
 	   String word = "i";
 	   
@@ -140,6 +142,6 @@ public class NearbyWords implements SpellingSuggest {
 	   List<String> suggest = w.suggestions(word, 10);
 	   System.out.println("Spelling Suggestions for \""+word+"\" are:");
 	   System.out.println(suggest);
-	   */
    }
+   */
 }

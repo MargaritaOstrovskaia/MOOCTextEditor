@@ -32,18 +32,13 @@ public class LoadFileDialogController {
 		
 	}
 	
-	/**
-     * Sets the stage of this dialog.
-     * @param dialogStage
-     */
+	/** Sets the stage of this dialog.
+     * @param dialogStage */
 	public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 	
-	/**
-	 * Sets reference to TextArea
-	 * 
-	 */
+	/** Sets reference to TextArea */
 	public void setTextArea(AutoSpellingTextArea textBox) {
 		this.textBox = textBox;
 	}
@@ -51,20 +46,17 @@ public class LoadFileDialogController {
 	@FXML
 	private void handleBrowse() {
 		FileChooser chooser = new FileChooser();
-		
 		configureFileChooser(chooser);
 		
 		// TEST SELECTING NEW FILE/OPENING CHOOSER AND CLOSING w/o selecting
 		File file = chooser.showOpenDialog(dialogStage);
-		
 		if(file != null) {
 			fileString = getStringFromFile(file);
 			pathField.setText(file.getAbsolutePath());
 			
 			// last file to be used as initial directory
 			lastFile = file;
-		}
-		
+		}	
 	}
 	
 	// set up file chooser
@@ -72,13 +64,11 @@ public class LoadFileDialogController {
 		fc.setTitle("Choose Text File...");
 		
 		// set initial directory of file chooser
-		if(lastFile != null) {
+		if(lastFile != null)
 			fc.setInitialDirectory(lastFile.getParentFile());
-		}
 		
 		fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
 	}
-	
 	
 	private String getStringFromFile(File file) {
 		try {
@@ -86,9 +76,9 @@ public class LoadFileDialogController {
 			String str;
 			StringBuilder sb = new StringBuilder();
 	
-			while( (str = buf.readLine())!=null) {
+			while( (str = buf.readLine()) != null )
 				sb.append(str).append('\n');
-			}
+
 			buf.close();
 			return sb.toString();
 		}
@@ -104,7 +94,6 @@ public class LoadFileDialogController {
 	
 	@FXML
 	private void handleAppend() {
-		
 		//append fileString if file was selected
 		appendTextAndClose();
 		// close dialog
@@ -122,5 +111,4 @@ public class LoadFileDialogController {
 		textBox.appendText(fileString);
 		dialogStage.close();
 	}
-	
 }

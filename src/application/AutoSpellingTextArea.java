@@ -62,10 +62,8 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 
 	static {
 		try {
-			mHit = Class.forName("org.fxmisc.richtext.skin.StyledTextAreaView").getDeclaredMethod("hit", double.class,
-					double.class);
-			mGetCharacterIndex = Class.forName("org.fxmisc.richtext.skin.CharacterHit")
-					.getDeclaredMethod("getCharacterIndex");
+			mHit = Class.forName("org.fxmisc.richtext.skin.StyledTextAreaView").getDeclaredMethod("hit", double.class, double.class);
+			mGetCharacterIndex = Class.forName("org.fxmisc.richtext.skin.CharacterHit").getDeclaredMethod("getCharacterIndex");
 
 		} catch (ClassNotFoundException | NoSuchMethodException ex) {
 			throw new RuntimeException(ex);
@@ -76,7 +74,6 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 	}
 
 	// end set up reflection
-
 	public AutoSpellingTextArea(spelling.AutoComplete ac, spelling.SpellingSuggest ss, spelling.Dictionary dic) {
 		super(true, (textNode, correct) -> {
 			// define boolean Text node style
@@ -94,7 +91,6 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 		this.dic = dic;
 
 		// SPELLING SUGGESTIONS
-
 		// register mouse click for correcting misspelled words
 		this.setOnMouseClicked(e -> {
 			if ((e.getButton() == MouseButton.SECONDARY) && spellingOn) {
@@ -123,13 +119,11 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 		// keep track of text changes, update spell check if needed
 		this.plainTextChanges().subscribe(change -> {
 			// could make more efficient
-			if (spellingOn && needUpdate) {
+			if (spellingOn && needUpdate)
 				this.setStyleSpans(0, checkSpelling());
-			}
 		});
 
 		// AUTOCOMPLETE
-
 		// initialize list and options menu for autoComplete
 		options = new ArrayList<String>();
 		entriesPopup = new ContextMenu();
@@ -147,15 +141,11 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 		});
 	}
 
-	/**
-	 * Gets white space delimited word which contains character at pos in text
+	/** Gets white space delimited word which contains character at pos in text
 	 * Also sets startIndex and endIndex instance variables.
 	 * 
-	 * @param pos
-	 *            - index in text area
-	 * @return word at index
-	 */
-
+	 * @param pos - index in text area
+	 * @return word at index */
 	private String getWordAtIndex(int pos) {
 		String text = this.getText().substring(0, pos);
 
@@ -187,12 +177,9 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 		return prefix;
 	}
 
-	/**
-	 * Populate the entry set with the options passed in
+	/** Populate the entry set with the options passed in
 	 * 
-	 * @param options
-	 *            - list of auto complete options
-	 */
+	 * @param options - list of auto complete options */
 	private List<CustomMenuItem> createOptions(List<String> options, boolean[] flags) {
 		List<CustomMenuItem> menuItems = new LinkedList<>();
 		// If you'd like more entries, modify this line.
@@ -205,12 +192,10 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 			// check if need to match case (flags will always be null is
 			// matchCase is true)
 			// see showSuggestions/Completions
-			if (flags != null) {
+			if (flags != null)
 				str = convertCaseUsingFlags(str, flags);
-			}
 
 			final String result = str;
-
 			Label entryLabel = new Label(result);
 			CustomMenuItem item = new CustomMenuItem(entryLabel, true);
 
@@ -232,11 +217,9 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 		return menuItems;
 	}
 
-	/**
-	 * Checks spelling of text in text area builds style spans
+	/** Checks spelling of text in text area builds style spans
 	 * 
-	 * @return StyleSpans with misspelled words set to style false (!correct)
-	 */
+	 * @return StyleSpans with misspelled words set to style false (!correct) */
 	public StyleSpans<Boolean> checkSpelling() {
 		String text = getText();
 		String word;
@@ -267,22 +250,17 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 
 	}
 
-	/**
-	 * show suggestions for word in menu at click point
+	/** show suggestions for word in menu at click point
 	 * 
-	 * @param word
-	 *            - word to get suggestions for
-	 * @param click
-	 *            - mouse click for displaying menu
-	 */
+	 * @param word - word to get suggestions for
+	 * @param click - mouse click for displaying menu */
 	private void showSuggestions(String word, MouseEvent click) {
 		List<String> suggestions = ss.suggestions(word, NUM_SUGGESTIONS);
 
 		// boolean array for matching case of use input
 		boolean[] caseFlags = null;
-		if (matchCase) {
+		if (matchCase)
 			caseFlags = getCaseFlags(word);
-		}
 
 		// references for creating menu items
 		Label sLabel;
@@ -315,39 +293,33 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 				setStyle(startIndex, endIndex, true);
 			}
 		});
-
 		menuItems.add(item);
 
 		entriesPopup.getItems().addAll(menuItems);
 		entriesPopup.show(getScene().getWindow(), click.getScreenX(), click.getScreenY());
-
 	}
 
 	private void showCompletions(String prefix) {
 		// keep track of prefix
 		// check if in middle of typing word
 		if (!prefix.equals("")) {
-
 			// get completion options
 			options = (ac).predictCompletions(prefix, NUM_COMPLETIONS);
 
 			// check if options found
 			if (options.size() > 0) {
-
 				// boolean array for matching case of use input
 				boolean[] caseFlags = null;
-				if (matchCase) {
+				if (matchCase)
 					caseFlags = getCaseFlags(prefix);
-				}
 
 				List<CustomMenuItem> menuOptions = createOptions(options, caseFlags);
 
 				entriesPopup.getItems().clear();
 				entriesPopup.getItems().addAll(menuOptions);
 
-				if (!entriesPopup.isShowing()) {
+				if (!entriesPopup.isShowing())
 					entriesPopup.show(getScene().getWindow());
-				}
 			}
 			// no options for complete
 			else {
@@ -377,20 +349,15 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 		autoCompleteOn = state;
 	}
 
-	/**
-	 * Returns a boolean array with true in position where word has an upper
-	 * case letter
+	/** Returns a boolean array with true in position where word has an upper case letter
 	 * 
 	 * @param word
-	 * @return boolean array for uppercase or null if none
-	 */
+	 * @return boolean array for uppercase or null if none */
 	public boolean[] getCaseFlags(String word) {
-
 		boolean[] flags = new boolean[word.length()];
 
 		// for if should return array or null
 		boolean anyUpperCase = false;
-
 		for (int i = 0; i < flags.length; i++) {
 			// if isUpperCase
 			if (Character.isUpperCase(word.charAt(i))) {
@@ -408,14 +375,11 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 		return null;
 	}
 
-	/**
-	 * Converts characters in word passed in which have "true" in the parallel
-	 * index to flags array
+	/** Converts characters in word passed in which have "true" in the parallel index to flags array
 	 * 
 	 * @param word
 	 * @param flags
-	 * @return string with uppercase in true positions
-	 */
+	 * @return string with uppercase in true positions */
 	private String convertCaseUsingFlags(String word, boolean[] flags) {
 		StringBuilder sb = new StringBuilder(word);
 

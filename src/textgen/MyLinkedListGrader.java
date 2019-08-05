@@ -1,60 +1,57 @@
 package textgen;
 
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 
 public class MyLinkedListGrader {
 	
 	PrintWriter out;
 	
-	public String printListForwards(MyLinkedList<Integer> lst)
-	{
+	public String printListForwards(MyLinkedList<Integer> lst) {
 		LLNode<Integer> curr;
-                String ret = "";
+		String ret = "";
 		if (lst.head.data == null)
 			curr = lst.head.next;
 		else
 			curr = lst.head;
 		
-		while (curr != null && curr.data != null)
-		{
+		while (curr != null && curr.data != null) {
 			ret += curr.data;
 			curr = curr.next;
 		}
-                return ret;
+		
+		return ret;
 	}
 	
 	public String printListBackwards(MyLinkedList<Integer> lst) {
 		LLNode<Integer> curr;
-                String ret = "";
+		String ret = "";
 		if (lst.tail.data == null)
 			curr = lst.tail.prev;
 		else
 			curr = lst.tail;
-		while (curr != null && curr.data != null)
-		{
-		        ret += curr.data;
+		while (curr != null && curr.data != null) {
+			ret += curr.data;
 			curr = curr.prev;
 		}
-                return ret;
+		
+		return ret;
 	}
 	
-	public void doTest()
-	{
-                int incorrect = 0;
-                int tests = 0;
-                String feedback = "";
+	public void doTest() {
+		int incorrect = 0;
+		int tests = 0;
+		String feedback = "";
 		try {
 			out = new PrintWriter("grader_output/module3.part1.out", "utf-8");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;
 		}
+		
 		MyLinkedList<Integer> lst = new MyLinkedList<Integer>();
 		int nums[] = {1, 2, 3, 4, 5};
 		
-                feedback += "** Test #1: Adding to end of list...";
+        feedback += "** Test #1: Adding to end of list...";
 		for (int i : nums) {
 			lst.add(i);
                 }
@@ -101,11 +98,8 @@ public class MyLinkedListGrader {
 		
 	}
 	
-	public static void main(String args[])
-	{
+	public static void main(String args[]) {
 		MyLinkedListGrader grader = new MyLinkedListGrader();
 		grader.doTest();
-	}
-	
-	
+	}	
 }

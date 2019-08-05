@@ -1,15 +1,15 @@
+/** 
+ * @author UC San Diego Intermediate MOOC team and Margarita Ostrovskaia
+ * date 04/03/2019
+ */
 package spelling;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-/**WPTree implements WordPath by dynamically creating a tree of words during a Breadth First
- * Search of Nearby words to create a path between two words. 
- * 
- * @author UC San Diego Intermediate MOOC team
- * @author Margarita Ostrovskaia
- * date 04/03/2019 */
+/** WPTree implements WordPath by dynamically creating a tree of words during a Breadth First
+ * Search of Nearby words to create a path between two words. */
 public class WPTree implements WordPath {
 	// this is the root node of the WPTree
 	private WPTreeNode root;
@@ -68,7 +68,6 @@ public class WPTree implements WordPath {
 	// Method to print a list of WPTreeNodes (useful for debugging)
 	private String printQueue(List<WPTreeNode> list) {
 		String ret = "[ ";
-		
 		for (WPTreeNode w : list)
 			ret+= w.getWord()+", ";
 		ret+= "]";
@@ -77,18 +76,16 @@ public class WPTree implements WordPath {
 	}
 }
 
-/* Tree Node in a WordPath Tree. This is a standard tree with each
- * node having any number of possible children.  Each node should only
- * contain a word in the dictionary and the relationship between nodes is
- * that a child is one character mutation (deletion, insertion, or
- * substitution) away from its parent */
+/** Tree Node in a WordPath Tree. This is a standard tree with each node having any number of possible children.
+ * Each node should only contain a word in the dictionary and the relationship between nodes is
+ * that a child is one character mutation (deletion, insertion, or substitution) away from its parent */
 class WPTreeNode {
     private String word;
     private List<WPTreeNode> children;
     private WPTreeNode parent;
     
-    /** Construct a node with the word w and the parent p
-     *  (pass a null parent to construct the root)  
+    /** Construct a node with the word w and the parent p (pass a null parent to construct the root)  
+     * 
 	 * @param w The new node's word
 	 * @param p The new node's parent */
     public WPTreeNode(String w, WPTreeNode p) {
@@ -97,8 +94,8 @@ class WPTreeNode {
         this.children = new LinkedList<WPTreeNode>();
     }
     
-    /** Add a child of a node containing the String s
-     *  precondition: The word is not already a child of this node
+    /** Add a child of a node containing the String s precondition: The word is not already a child of this node
+     * 
      * @param s The child node's word
 	 * @return The new WPTreeNode */
     public WPTreeNode addChild(String s){
@@ -107,15 +104,15 @@ class WPTreeNode {
         return child;
     }
     
-    /** Get the list of children of the calling object
-     *  (pass a null parent to construct the root)  
+    /** Get the list of children of the calling object (pass a null parent to construct the root)  
+     * 
 	 * @return List of WPTreeNode children */
     public List<WPTreeNode> getChildren() {
         return this.children;
     }
    
-    /** Allows you to build a path from the root node to 
-     *  the calling object
+    /** Allows you to build a path from the root node to the calling object
+     * 
      * @return The list of strings starting at the root and ending at the calling object */
     public List<String> buildPathToRoot() {
         WPTreeNode curr = this;
@@ -128,12 +125,14 @@ class WPTreeNode {
     }
     
     /** Get the word for the calling object
+     * 
 	 * @return Getter for calling object's word */
     public String getWord() {
         return this.word;
     }
     
     /** toString method
+     * 
 	 * @return The string representation of a WPTreeNode */
     public String toString() {
         String ret = "Word: "+word+", parent = ";
